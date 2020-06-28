@@ -1,4 +1,4 @@
-<img src="neptune.png" height="100px" />
+<img src="neptune.png" height="150px" />
 
 # Neptune
 Kubernetes Management Systems
