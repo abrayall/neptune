@@ -24,7 +24,18 @@ class Agent:
         config['[inputs.cpu]']['collect_cpu_time'] = 'false'
         config['[inputs.cpu]']['report_active'] = 'false'
 
+        config['[inputs.disk]'] = {}
+        config['[inputs.diskio]'] = {}
+        config['[inputs.kernel]'] = {}
         config['[inputs.mem]'] = {}
+        config['[inputs.processes]'] = {}
+        config['[inputs.swap]'] = {}
+        config['[inputs.net]'] = {}
+        config['[inputs.netstat]'] = {}
+
+        config['[inputs.internal]'] = {}
+        config['[inputs.docker]'] = {}
+        #config['[inputs.kubernetes]'] = {}
 
         os.makedirs(self._work() + '/telegraf', exist_ok=True)
         with open(self._work() + '/telegraf/telegraf.conf', 'w') as file:
@@ -35,15 +46,13 @@ class Agent:
         print(' '.join(command))
         with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True) as process:
             while self.state == 'running':
-                metric = Metric().parse(process.stdout.readline().strip())
+                line = process.stdout.readline().strip()
+                metric = Metric().parse(line)
                 print(metric.toString())
 
 
     def _home(self):
-        if os.path.isdir('src'):
-            return '.'
-        else:
-            return '..'
+        return '.'
 
     def _work(self):
         if os.path.isdir('src') == False and os.path.isdir('../src'):

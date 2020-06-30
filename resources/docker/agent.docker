@@ -1,0 +1,6 @@
+FROM python:3.7
+ADD bin /opt/neptune/bin/
+ADD lib/* /opt/neptune/lib/
+ADD resources/* /opt/neptune/resources/
+WORKDIR /opt/neptune
+CMD /opt/neptune/bin/agent.sh
