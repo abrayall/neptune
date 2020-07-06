@@ -9,9 +9,7 @@ class Agent:
         config = configparser.ConfigParser()
         config['agent'] = {}
         config['agent']['hostname'] = '"' + socket.gethostname() + '"'
-
         config['global_tags'] = {}
-        config['global_tags']['something'] = '"foo"'
 
         config['[outputs.file]'] = {}
         config['[outputs.file]']['files'] = '["stdout"]'
@@ -35,7 +33,10 @@ class Agent:
 
         config['[inputs.internal]'] = {}
         config['[inputs.docker]'] = {}
-        #config['[inputs.kubernetes]'] = {}
+        config['[inputs.kubernetes]'] = {}
+        config['[inputs.kubernetes]']['url'] = "https://192.168.99.102:10250"
+        config['[inputs.kubernetes]']['bearer_token' = "/run/secrets/kubernetes.io/serviceaccount/token"
+        config['[inputs.kubernetes]']['insecure_skip_verify' = true
 
         os.makedirs(self._work() + '/telegraf', exist_ok=True)
         with open(self._work() + '/telegraf/telegraf.conf', 'w') as file:
@@ -64,7 +65,7 @@ class Agent:
         return self._home() + '/resources'
 
 class Metric:
-    def __init__(self, name="", timestamp=0, value=0, tags={}):
+    def __init__(self, name="", timestamp=0, value=0, tags=dict()):
         self.name = name
         self.timestamp = timestamp
         self.value = value

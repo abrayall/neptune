@@ -1,0 +1,79 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: neptune-agent
+rules:
+- apiGroups: [""]
+  resources: ["nodes", "nodes/stats", "nodes/proxy", "pods"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: neptune-agent
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: neptune-agent
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: neptune-agent
+spec:
+  selector:
+    matchLabels:
+      name: neptune-agent
+  template:
+    metadata:
+      labels:
+        app: neptune
+        service: agent
+        name: neptune-agent
+    spec:
+      containers:
+      - name: neptune-agent
+        image: neptune-agent:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: HOSTIP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: "HOST_PROC"
+          value: "/rootfs/proc"
+        - name: "HOST_SYS"
+          value: "/rootfs/sys"
+        volumeMounts:
+        - name: varrunutmpro
+          mountPath: /var/run/utmp
+          readOnly: true
+        - name: sysro
+          mountPath: /rootfs/sys
+          readOnly: true
+        - name: procro
+          mountPath: /rootfs/proc
+          readOnly: true
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
+      volumes:
+      - name: sysro
+        hostPath:
+          path: /sys
+      - name: docker-socket
+        hostPath:
+          path: /var/run/docker.sock
+      - name: procro
+        hostPath:
+          path: /proc
+      - name: varrunutmpro
+        hostPath:
+          path: /var/run/utmp
