@@ -16,6 +16,12 @@ class Agent:
         config['[outputs.file]']['data_format'] = '"graphite"'
         config['[outputs.file]']['graphite_tag_support'] = 'true'
 
+        config['[outputs.influxdb_v2]'] = {}
+        config['[outputs.influxdb_v2]']['urls'] = '["http://neptune-timeseries:9999"]'
+        config['[outputs.influxdb_v2]']['token'] = '"Ku-vr2Vu70U47XRsUhNBRB2LoCkoSAQNEEzFc8Mncw72MLvQwaQf6ct0QERwzbN7Mhy8F16apCkkR5Obg0zhaw=="'
+        config['[outputs.influxdb_v2]']['organization'] = '"neptune"'
+        config['[outputs.influxdb_v2]']['bucket'] = '"neptune"'
+
         config['[inputs.cpu]'] = {}
         config['[inputs.cpu]']['percpu'] = 'true'
         config['[inputs.cpu]']['totalcpu'] = 'true'
@@ -34,9 +40,9 @@ class Agent:
         config['[inputs.internal]'] = {}
         config['[inputs.docker]'] = {}
         config['[inputs.kubernetes]'] = {}
-        config['[inputs.kubernetes]']['url'] = "https://192.168.99.102:10250"
-        config['[inputs.kubernetes]']['bearer_token' = "/run/secrets/kubernetes.io/serviceaccount/token"
-        config['[inputs.kubernetes]']['insecure_skip_verify' = true
+        config['[inputs.kubernetes]']['url'] = '"https://' + os.environ['HOSTIP'] + ':10250"'
+        config['[inputs.kubernetes]']['bearer_token'] = '"/run/secrets/kubernetes.io/serviceaccount/token"'
+        config['[inputs.kubernetes]']['insecure_skip_verify'] = 'true'
 
         os.makedirs(self._work() + '/telegraf', exist_ok=True)
         with open(self._work() + '/telegraf/telegraf.conf', 'w') as file:
@@ -48,8 +54,9 @@ class Agent:
         with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True) as process:
             while self.state == 'running':
                 line = process.stdout.readline().strip()
-                metric = Metric().parse(line)
-                print(metric.toString())
+                #metric = Metric().parse(line)
+                #print(metric.toString())
+                print(line)
 
 
     def _home(self):

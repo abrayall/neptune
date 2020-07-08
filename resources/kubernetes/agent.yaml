@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
       - name: neptune-agent
-        image: neptune-agent:latest
+        image: neptune-agent:${version}
         imagePullPolicy: IfNotPresent
         env:
         - name: HOSTNAME

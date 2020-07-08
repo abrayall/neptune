@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: neptune-timeseries
+spec:
+  selector:
+    matchLabels:
+      service: timeseries
+  serviceName: "neptune-timeseries"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: neptune
+        service: timeseries
+        name: neptune-timeseries
+    spec:
+      containers:
+      - name: influxdb
+        image: neptune-timeseries:${version}
+        ports:
+        - name: http
+          containerPort: 9999
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+#          volumeMounts:
+#          - name: data
+#            mountPath: /root/.influxdbv2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: neptune-timeseries
+  labels:
+    app: neptune
+    service: timeseries
+    name: neptune-timeseries
+spec:
+  type: NodePort
+  selector:
+    app: neptune
+    service: timeseries
+    name: neptune-timeseries
+  ports:
+  - port: 9999
+    targetPort: 9999
+    nodePort: 31999
+    protocol: TCP
+    name: http
