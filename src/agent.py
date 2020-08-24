@@ -1,10 +1,18 @@
 import os
+import sys
 import time
 import socket
+import traceback
 import configparser
 import subprocess
 
+import influxdb_client
+
 class Agent:
+    def __init__(self):
+        self.client = influxdb_client.InfluxDBClient(url="http://neptune-timeseries-0.neptune-timeseries:9999", token="Ku-vr2Vu70U47XRsUhNBRB2LoCkoSAQNEEzFc8Mncw72MLvQwaQf6ct0QERwzbN7Mhy8F16apCkkR5Obg0zhaw==", org="neptune")
+        self.writer = self.client.write_api(write_options=influxdb_client.client.write_api.SYNCHRONOUS)
+
     def start(self):
         config = configparser.ConfigParser()
         config['agent'] = {}
@@ -16,11 +24,11 @@ class Agent:
         config['[outputs.file]']['data_format'] = '"graphite"'
         config['[outputs.file]']['graphite_tag_support'] = 'true'
 
-        config['[outputs.influxdb_v2]'] = {}
-        config['[outputs.influxdb_v2]']['urls'] = '["http://neptune-timeseries:9999"]'
-        config['[outputs.influxdb_v2]']['token'] = '"Ku-vr2Vu70U47XRsUhNBRB2LoCkoSAQNEEzFc8Mncw72MLvQwaQf6ct0QERwzbN7Mhy8F16apCkkR5Obg0zhaw=="'
-        config['[outputs.influxdb_v2]']['organization'] = '"neptune"'
-        config['[outputs.influxdb_v2]']['bucket'] = '"neptune"'
+        #config['[outputs.influxdb_v2]'] = {}
+        #config['[outputs.influxdb_v2]']['urls'] = '["http://neptune-timeseries:9999"]'
+        #config['[outputs.influxdb_v2]']['token'] = '"Ku-vr2Vu70U47XRsUhNBRB2LoCkoSAQNEEzFc8Mncw72MLvQwaQf6ct0QERwzbN7Mhy8F16apCkkR5Obg0zhaw=="'
+        #config['[outputs.influxdb_v2]']['organization'] = '"neptune"'
+        #config['[outputs.influxdb_v2]']['bucket'] = '"neptune"'
 
         config['[inputs.cpu]'] = {}
         config['[inputs.cpu]']['percpu'] = 'true'
@@ -39,10 +47,12 @@ class Agent:
 
         config['[inputs.internal]'] = {}
         config['[inputs.docker]'] = {}
-        config['[inputs.kubernetes]'] = {}
-        config['[inputs.kubernetes]']['url'] = '"https://' + os.environ['HOSTIP'] + ':10250"'
-        config['[inputs.kubernetes]']['bearer_token'] = '"/run/secrets/kubernetes.io/serviceaccount/token"'
-        config['[inputs.kubernetes]']['insecure_skip_verify'] = 'true'
+
+        if "HOSTIP" in os.environ:
+            config['[inputs.kubernetes]'] = {}
+            config['[inputs.kubernetes]']['url'] = '"https://' + os.environ['HOSTIP'] + ':10250"'
+            config['[inputs.kubernetes]']['bearer_token'] = '"/run/secrets/kubernetes.io/serviceaccount/token"'
+            config['[inputs.kubernetes]']['insecure_skip_verify'] = 'true'
 
         os.makedirs(self._work() + '/telegraf', exist_ok=True)
         with open(self._work() + '/telegraf/telegraf.conf', 'w') as file:
@@ -51,13 +61,17 @@ class Agent:
         self.state = 'running'
         command = [self._resources() + '/telegraf/usr/bin/telegraf', '--config', self._work() + '/telegraf/telegraf.conf', '-quiet']
         print(' '.join(command))
+
         with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True) as process:
             while self.state == 'running':
-                line = process.stdout.readline().strip()
-                #metric = Metric().parse(line)
-                #print(metric.toString())
-                print(line)
+                metric = Metric().parse(process.stdout.readline().strip())
+                try:
+                    self.writer.write(bucket="neptune", record=metric.toLine())
+                except:
+                    print("Error")
+                    traceback.print_exc()
 
+        return
 
     def _home(self):
         return '.'
@@ -92,6 +106,9 @@ class Metric:
 
     def toString(self):
         return 'metric: ' + self.name + ', time=' + str(self.timestamp) + ', value=' + str(self.value) + ', tags=' + str(self.tags)
+
+    def toLine(self):
+        return self.name + ',' + ','.join("{!s}={!s}".format(tag,value) for (tag,value) in self.tags.items()) +  ' value=' + str(self.value) + ' ' + str(self.timestamp * 1000)
 
 if __name__ == '__main__':
     Agent().start()
