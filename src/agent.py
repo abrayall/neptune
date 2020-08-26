@@ -3,17 +3,38 @@ import sys
 import time
 import socket
 import traceback
+import threading
 import configparser
 import subprocess
 
+import kubernetes
 import influxdb_client
+
+kubernetes.config.load_kube_config()
 
 class Agent:
     def __init__(self):
-        self.client = influxdb_client.InfluxDBClient(url="http://neptune-timeseries-0.neptune-timeseries:9999", token="Ku-vr2Vu70U47XRsUhNBRB2LoCkoSAQNEEzFc8Mncw72MLvQwaQf6ct0QERwzbN7Mhy8F16apCkkR5Obg0zhaw==", org="neptune")
-        self.writer = self.client.write_api(write_options=influxdb_client.client.write_api.SYNCHRONOUS)
+        self.influx = influxdb_client.InfluxDBClient(url="http://neptune-timeseries-0.neptune-timeseries:9999", token="Ku-vr2Vu70U47XRsUhNBRB2LoCkoSAQNEEzFc8Mncw72MLvQwaQf6ct0QERwzbN7Mhy8F16apCkkR5Obg0zhaw==", org="neptune")
+        self.writer = self.influx.write_api(write_options=influxdb_client.client.write_api.SYNCHRONOUS)
 
-    def start(self):
+    def run(self):
+        self.kubernetes = Kubernetes().client(kubernetes.client.CoreV1Api()).onEvent(self.onEvent).start()
+        self.telegraf = Telegraf().onMetric(self.onMetric).start()
+
+    def onMetric(self, metric):
+        self.writer.write(bucket="neptune", record=metric.toLine())
+        return self
+
+    def onEvent(self, event):
+        print("Kubernetes Event: %s %s [%s]" % (event['type'], event['object'].metadata.name, 'pod'))
+        return self
+
+class Telegraf(threading.Thread):
+    def onMetric(self, onMetric):
+        self._onMetric = onMetric
+        return self
+
+    def run(self):
         config = configparser.ConfigParser()
         config['agent'] = {}
         config['agent']['hostname'] = '"' + socket.gethostname() + '"'
@@ -58,19 +79,17 @@ class Agent:
         with open(self._work() + '/telegraf/telegraf.conf', 'w') as file:
             config.write(file)
 
-        self.state = 'running'
         command = [self._resources() + '/telegraf/usr/bin/telegraf', '--config', self._work() + '/telegraf/telegraf.conf', '-quiet']
-        print(' '.join(command))
+        print("Starting telegraf agent [" + ' '.join(command) + "]...")
 
         with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True) as process:
-            while self.state == 'running':
+            while True:
                 metric = Metric().parse(process.stdout.readline().strip())
                 try:
-                    self.writer.write(bucket="neptune", record=metric.toLine())
+                    self._onMetric(metric)
                 except:
                     print("Error")
                     traceback.print_exc()
-
         return
 
     def _home(self):
@@ -85,12 +104,32 @@ class Agent:
     def _resources(self):
         return self._home() + '/resources'
 
+class Kubernetes(threading.Thread):
+    def client(self, client):
+        self.client = client
+        return self
+
+    def onEvent(self, onEvent):
+        self._onEvent = onEvent
+        return self
+        
+    def run(self):
+        self.watch()
+
+    def watch(self):
+        self.watcher = kubernetes.watch.Watch()
+        self.stream = self.watcher.stream(self.client.list_pod_for_all_namespaces)
+        for event in self.stream:
+            self._onEvent(event)
+
 class Metric:
-    def __init__(self, name="", timestamp=0, value=0, tags=dict()):
+    def __init__(self, name="", timestamp=0, value=0, tags=None):
         self.name = name
         self.timestamp = timestamp
         self.value = value
         self.tags = tags
+        if (tags == None):
+            self.tags = {}
 
     def parse(self, string):
         tokens = string.split(" ")
@@ -108,7 +147,7 @@ class Metric:
         return 'metric: ' + self.name + ', time=' + str(self.timestamp) + ', value=' + str(self.value) + ', tags=' + str(self.tags)
 
     def toLine(self):
-        return self.name + ',' + ','.join("{!s}={!s}".format(tag,value) for (tag,value) in self.tags.items()) +  ' value=' + str(self.value) + ' ' + str(self.timestamp * 1000)
+        return self.name + ',' + ','.join("{!s}={!s}".format(tag,value) for (tag,value) in self.tags.items()) +  ' value=' + str(self.value) # + ' ' + str(self.timestamp * 1000)
 
 if __name__ == '__main__':
-    Agent().start()
+    Agent().run()

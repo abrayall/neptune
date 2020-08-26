@@ -1,25 +1,57 @@
+import os
+import threading
 import kubernetes
 
-kubernetes.config.load_kube_config()
+import tornado.web
+import tornado.ioloop
+import tornado.template
 
-client = kubernetes.client.AppsV1Api()
+class Test:
+    def __init__(self):
+        kubernetes.config.load_kube_config()
+        self.client = kubernetes.client.CoreV1Api()
 
-print("Connected to kubernetes...")
-watcher = kubernetes.watch.Watch()
-stream = watcher.stream(client.list_deployment_for_all_namespaces)
-for event in stream:
-    deployment = event['object']
-    print("Kubernetes Event: %s %s [%s]" % (event['type'], event['object'].metadata.name, 'deployment'))
+    def run(self):
+        print("Connected to kubernetes...")
+        watcher = kubernetes.watch.Watch()
+        stream = watcher.stream(client.list_pod_for_all_namespaces)
 
-    if event['type'] == 'ADDED' and deployment.metadata.name == 'test':
-        deployment.spec.template.spec.containers = [kubernetes.client.V1Container(
-            name="monitor",
-            image="k8s.gcr.io/echoserver:1.1",
-            image_pull_policy="Always"
-        )]
+        pods = {}
+        for event in stream:
+            pod = event['object']
+            print("Kubernetes Event: %s %s [%s]" % (event['type'], event['object'].metadata.name, 'pod'))
+            pods[pod.metadata.name] = pod
+            #if event['type'] == 'ADDED' and pod.metadata.name == 'test':
+            #    pod.spec.template.spec.containers = [kubernetes.client.V1Container(
+            #        name="monitor",
+            #        image="k8s.gcr.io/echoserver:1.1",
+            #        image_pull_policy="Always"
+            #    )]
 
-        client.patch_namespaced_deployment(
-            name = deployment.metadata.name,
-            namespace = deployment.metadata.namespace,
-            body = deployment
-        )
+            #    client.patch_namespaced_pod(
+            #        name = pod.metadata.name,
+            #        namespace = pod.metadata.namespace,
+            #        body = pod
+            #    )
+
+            print(pods.keys())
+
+
+class WebServer:
+    def __init__(self, rocket={}):
+        self.rocket = rocket
+        self.app = tornado.web.Application([
+            ("/(.*)", WebHandler, dict(rocket=self.rocket)),
+        ])
+
+    def start(self):
+        self.app.listen(80)
+        threading.Thread(target=tornado.ioloop.IOLoop.current().start).start()
+
+class WebHandler(tornado.web.RequestHandler):
+    def initialize(self, context):
+        self.context = context
+
+
+if __name__ == "__main__":
+    Test().run()
