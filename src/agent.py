@@ -10,7 +10,10 @@ import subprocess
 import kubernetes
 import influxdb_client
 
-kubernetes.config.load_kube_config()
+try:
+    kubernetes.config.load_kube_config()
+except:
+    kubernetes.config.load_incluster_config()
 
 class Agent:
     def __init__(self):
@@ -112,7 +115,7 @@ class Kubernetes(threading.Thread):
     def onEvent(self, onEvent):
         self._onEvent = onEvent
         return self
-        
+
     def run(self):
         self.watch()
 

@@ -13,3 +13,11 @@ kubectl apply -f build/work/resources/kubernetes/agent.yaml
 echo Deploying neptune-timeseries into minikube...
 minikube cache add neptune-timeseries:$version
 kubectl apply -f build/work/resources/kubernetes/timeseries.yaml
+
+echo Waiting for services to start...
+while [ `kubectl get pods | grep 1/1 | wc -l` -ne 2 ]; do
+    sleep 10
+done
+
+echo Launching browser...
+minikube service neptune-timeseries
