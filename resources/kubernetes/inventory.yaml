@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: neptune-inventory
+spec:
+  selector:
+    matchLabels:
+      service: inventory
+  serviceName: "neptune-inventory"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: neptune
+        service: inventory
+        name: neptune-inventory
+    spec:
+      containers:
+      - name: janusgraph
+        image: janusgraph/janusgraph
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: neptune-inventory
+  labels:
+    app: neptune
+    service: inventory
+    name: neptune-inventory
+spec:
+  selector:
+    app: neptune
+    service: inventory
+    name: neptune-inventory
+  ports:
+  - port: 8182
+    targetPort: 8182
+    protocol: TCP
+    name: http
