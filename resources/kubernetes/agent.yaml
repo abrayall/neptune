@@ -56,24 +56,35 @@ spec:
 #        - name: varrunutmpro
 #          mountPath: /var/run/utmp
 #          readOnly: true
-        - name: sysro
+        - name: sys
           mountPath: /rootfs/sys
           readOnly: true
-        - name: procro
+        - name: proc
           mountPath: /rootfs/proc
           readOnly: true
-        - name: docker-socket
+        - name: docker
           mountPath: /var/run/docker.sock
+        - name: logs
+          mountPath: /var/log
+        - name: containers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
       volumes:
-      - name: sysro
+      - name: sys
         hostPath:
           path: /sys
-      - name: docker-socket
-        hostPath:
-          path: /var/run/docker.sock
-      - name: procro
+      - name: proc
         hostPath:
           path: /proc
+      - name: docker
+        hostPath:
+          path: /var/run/docker.sock
+      - name: logs
+        hostPath:
+          path: /var/log
+      - name: containers
+        hostPath:
+          path: /var/lib/docker/containers
 #      - name: varrunutmpro
 #        hostPath:
 #          path: /var/run/utmp

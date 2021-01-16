@@ -1,11 +1,16 @@
 import os
 import sys
 import time
+import json
 import socket
+
 import traceback
 import threading
 import configparser
 import subprocess
+
+import logging
+import logging.handlers
 
 import kubernetes
 import influxdb_client
@@ -19,20 +24,60 @@ class Agent:
     def __init__(self):
         self.influx = influxdb_client.InfluxDBClient(url="http://neptune-timeseries-0.neptune-timeseries:9999", token="Ku-vr2Vu70U47XRsUhNBRB2LoCkoSAQNEEzFc8Mncw72MLvQwaQf6ct0QERwzbN7Mhy8F16apCkkR5Obg0zhaw==", org="neptune")
         self.writer = self.influx.write_api(write_options=influxdb_client.client.write_api.SYNCHRONOUS)
+        self.loggers = {}
 
     def run(self):
         self.kubernetes = Kubernetes().client(kubernetes.client.CoreV1Api()).onEvent(self.onEvent).start()
-        self.telegraf = Telegraf().onMetric(self.onMetric).start()
+        self.telegraf = Telegraf().context(self).onMetric(self.onMetric).start()
+        self.fluentd = Fluentd().context(self).start()
 
     def onMetric(self, metric):
-        self.writer.write(bucket="neptune", record=metric.toLine())
+        try:
+            self.writer.write(bucket="neptune", record=metric.toLine())
+        except:
+            print("Unable to communicate with timeseries service!")
+
         return self
 
     def onEvent(self, event):
         print("Kubernetes Event: %s %s [%s]" % (event['type'], event['object'].metadata.name, 'pod'))
         return self
 
+    def home(self):
+        return '.'
+
+    def work(self):
+        if os.path.isdir('src') == False and os.path.isdir('../src') == False:
+            return self.home() + '/work'
+        else:
+            return '/tmp/neptune/agent/work'
+
+    def data(self):
+        if os.path.isdir('src') == False and os.path.isdir('../src') == False:
+            return self.home() + '/data'
+        else:
+            return '/tmp/neptune/agent/data'
+
+    def resources(self):
+        return self.home() + '/resources'
+
+    def logger(self, id, name):
+        if id in self.loggers:
+            return self.loggers[id]
+
+        os.makedirs(self.data() + '/logs/' + name, exist_ok=True)
+        logger = logging.Logger(name)
+        handler = logging.handlers.TimedRotatingFileHandler(self.data() + '/logs/' + name + '/' + name + '.log', when='h', interval=1, backupCount=10)
+        handler.setFormatter(logging.Formatter('%(message)s'))
+        logger.addHandler(handler)
+        self.loggers[id] = logger
+        return logger
+
 class Telegraf(threading.Thread):
+    def context(self, context):
+        self.context = context
+        return self
+
     def onMetric(self, onMetric):
         self._onMetric = onMetric
         return self
@@ -78,11 +123,11 @@ class Telegraf(threading.Thread):
             config['[inputs.kubernetes]']['bearer_token'] = '"/run/secrets/kubernetes.io/serviceaccount/token"'
             config['[inputs.kubernetes]']['insecure_skip_verify'] = 'true'
 
-        os.makedirs(self._work() + '/telegraf', exist_ok=True)
-        with open(self._work() + '/telegraf/telegraf.conf', 'w') as file:
+        os.makedirs(self.context.work() + '/telegraf', exist_ok=True)
+        with open(self.context.work() + '/telegraf/telegraf.conf', 'w') as file:
             config.write(file)
 
-        command = [self._resources() + '/telegraf/usr/bin/telegraf', '--config', self._work() + '/telegraf/telegraf.conf', '-quiet']
+        command = [self.context.resources() + '/telegraf/usr/bin/telegraf', '--config', self.context.work() + '/telegraf/telegraf.conf', '-quiet']
         print("Starting telegraf agent [" + ' '.join(command) + "]...")
 
         with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, universal_newlines=True) as process:
@@ -95,17 +140,45 @@ class Telegraf(threading.Thread):
                     traceback.print_exc()
         return
 
-    def _home(self):
-        return '.'
+class Fluentd(threading.Thread):
+    def context(self, context):
+        self.context = context
+        return self
 
-    def _work(self):
-        if os.path.isdir('src') == False and os.path.isdir('../src'):
-            return self._home() + '/work'
-        else:
-            return '/tmp/neptune/agent/work'
+    def run(self):
+        # produce fluentd.conf
+        # start fluentd
+        os.makedirs(self.context.work() + '/fluentd', exist_ok=True)
+        config = open(self.context.work() + '/fluentd/fluentd.conf', 'w')
+        config.write('<source>\n')
+        config.write('  @type tail\n')
+        config.write('  path /var/log/containers/*.log\n')
+        config.write('  path_key tailed_path\n')
+        config.write('  pos_file /opt/neptune/work/logs/logs.pos\n')
+        config.write('  tag kubernetes.*\n')
+        config.write('  read_from_head true\n')
+        config.write('  <parse>\n')
+        config.write('    @type json\n')
+        config.write('    time_format %Y-%m-%dT%H:%M:%S.%NZ\n')
+        config.write('  </parse>\n')
+        config.write('</source>\n')
+        config.write('<match kubernetes.**>\n')
+        config.write('  @type stdout\n')
+        config.write('</match>\n')
+        config.close()
 
-    def _resources(self):
-        return self._home() + '/resources'
+        command = ['fluentd', '-c', self.context.work() + '/fluentd/fluentd.conf']
+        print("Starting fluentd agent [" + ' '.join(command) + "]...")
+
+        with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True) as process:
+            while True:
+                line = process.stdout.readline().strip()
+                if line[36:46] == 'kubernetes':
+                    record = json.loads('{' + line.split(': {')[1])
+                    pod = record['tailed_path'].replace('/var/log/containers/', '').split('_')  # 0=name, 1=namespace, 2=id
+                    if pod[0][0:12] != "neptune-agent":
+                        print('Log message: [{}] [{}] {}'.format(line[0:19], pod[0], record['log']))
+                        self.context.logger(pod[2], pod[0]).info(record['log'].strip())
 
 class Kubernetes(threading.Thread):
     def client(self, client):
