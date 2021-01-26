@@ -11,22 +11,28 @@ fi
 
 .python/bin/activate
 
-if [ -d "src" ]; then
+if [ -d "agent/src" ]; then
     CODE_DIRECTORY="src"
 else
     CODE_DIRECTORY="lib"
 fi
 
-ACTION="$1"
+SERVICE="$1"
+if [ "$SERVICE" == "" ]; then
+    SERVICE="agent"
+fi
+
+ACTION="$2"
 if [ "$ACTION" == "" ]; then
     ACTION="run"
 fi
 
-if [ -f $CODE_DIRECTORY/$1.py ]; then
+if [ -f $SERVICE/$CODE_DIRECTORY/$SERVICE.py ]; then
     ACTION="run"
-    CODE="$1"
 fi
 
 if [ "$ACTION" == "run" ]; then
-    .python/bin/python3 $CODE_DIRECTORY/$CODE.py "${@:2}"
+    cd $SERVICE
+    ../.python/bin/python3 $CODE_DIRECTORY/$SERVICE.py "${@:2}"
+    cd ..
 fi

@@ -168,7 +168,7 @@ class Fluentd(threading.Thread):
         config.close()
 
         command = ['fluentd', '-c', self.context.work() + '/fluentd/fluentd.conf']
-        print("Starting fluentd agent [" + ' '.join(command) + "]...")
+        #print("Starting fluentd agent [" + ' '.join(command) + "]...")
 
         #with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True) as process:
         #    while True:

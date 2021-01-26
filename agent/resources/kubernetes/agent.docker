@@ -1,0 +1,9 @@
+FROM python:3.7
+RUN apt update && apt install -y ruby-full
+RUN pip3 install influxdb-client[ciso] kubernetes
+RUN gem install bigdecimal fluentd --no-doc
+ADD bin /opt/neptune/bin/
+ADD lib/* /opt/neptune/lib/
+ADD resources/* /opt/neptune/resources/
+WORKDIR /opt/neptune
+CMD /opt/neptune/bin/agent.sh
