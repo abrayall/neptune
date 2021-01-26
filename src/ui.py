@@ -8,6 +8,10 @@ class Ui:
         self.flask.add_url_rule('/api/metrics/', 'metrics', self._metrics)
         self.http = Server(self.flask)
         self.http.start()
+        print('Neptune UI service is now listening on port 5000.')
+
+    def stop(self):
+        self.http.stop()
 
     def _index(self):
         return "Hello, World!"
@@ -39,7 +43,7 @@ click.echo = click.secho = devnull
 if __name__ == '__main__':
     ui = Ui().run()
 
-    def stop(betty):
+    def stop(ui):
         ui.stop()
         os._exit(0)
 

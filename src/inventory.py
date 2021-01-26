@@ -7,14 +7,14 @@ import pyArango
 import pyArango.connection
 
 
-class Test:
+class Inventory:
 
     def __init__(self):
         kubernetes.config.load_kube_config()
         self.kubernetes_core = kubernetes.client.CoreV1Api()
         self.kubernetes_apps = kubernetes.client.AppsV1Api()
 
-        self.arango = pyArango.connection.Connection(username='root', password='password')['inventory']
+        self.arango = self._database(pyArango.connection.Connection(arangoURL='http://192.168.99.136:31529', username='root', password='root'), 'inventory')
         self.nodes = self._collection(self.arango, 'nodes', ['metadata.name', 'creation_timestamp', 'metadata.deletion_timestamp'])
         self.pods = self._collection(self.arango, 'pods', ['metadata.name', 'creation_timestamp', 'metadata.deletion_timestamp'])
         self.statefulsets = self._collection(self.arango, 'statefulsets', ['metadata.name', 'creation_timestamp', 'metadata.deletion_timestamp'])
@@ -70,6 +70,12 @@ class Test:
     def store(self, collection, object):
         self._document(collection, object.metadata.uid, object.to_dict())
 
+    def _database(self, arango, name):
+        if arango.hasDatabase(name) == False:
+            arango.createDatabase(name)
+
+        return arango[name]
+
     def _collection(self, arango, name, indexes):
         if (arango.hasCollection(name)):
             return arango[name]
@@ -91,4 +97,4 @@ class Test:
 
 
 if __name__ == "__main__":
-    Test().run()
+    Inventory().run()

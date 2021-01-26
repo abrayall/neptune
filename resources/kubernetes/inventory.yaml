@@ -16,8 +16,11 @@ spec:
         name: neptune-inventory
     spec:
       containers:
-      - name: janusgraph
-        image: janusgraph/janusgraph
+      - name: arangodb
+        image: arangodb:3.7.6
+        env:
+          - name: ARANGO_ROOT_PASSWORD
+            value: root
 ---
 apiVersion: v1
 kind: Service
@@ -28,12 +31,14 @@ metadata:
     service: inventory
     name: neptune-inventory
 spec:
+  type: NodePort
   selector:
     app: neptune
     service: inventory
     name: neptune-inventory
   ports:
-  - port: 8182
-    targetPort: 8182
+  - port: 8529
+    targetPort: 8529
+    nodePort: 31529
     protocol: TCP
     name: http

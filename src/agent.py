@@ -170,15 +170,15 @@ class Fluentd(threading.Thread):
         command = ['fluentd', '-c', self.context.work() + '/fluentd/fluentd.conf']
         print("Starting fluentd agent [" + ' '.join(command) + "]...")
 
-        with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True) as process:
-            while True:
-                line = process.stdout.readline().strip()
-                if line[36:46] == 'kubernetes':
-                    record = json.loads('{' + line.split(': {')[1])
-                    pod = record['tailed_path'].replace('/var/log/containers/', '').split('_')  # 0=name, 1=namespace, 2=id
-                    if pod[0][0:12] != "neptune-agent":
-                        print('Log message: [{}] [{}] {}'.format(line[0:19], pod[0], record['log']))
-                        self.context.logger(pod[2], pod[0]).info(record['log'].strip())
+        #with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True) as process:
+        #    while True:
+        #        line = process.stdout.readline().strip()
+        #        if line[36:46] == 'kubernetes':
+        #            record = json.loads('{' + line.split(': {')[1])
+        #            pod = record['tailed_path'].replace('/var/log/containers/', '').split('_')  # 0=name, 1=namespace, 2=id
+        #            if pod[0][0:12] != "neptune-agent":
+        #                print('Log message: [{}] [{}] {}'.format(line[0:19], pod[0], record['log']))
+        #                self.context.logger(pod[2], pod[0]).info(record['log'].strip())
 
 class Kubernetes(threading.Thread):
     def client(self, client):
