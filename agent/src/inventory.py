@@ -14,7 +14,7 @@ class Inventory:
         self.kubernetes_core = kubernetes.client.CoreV1Api()
         self.kubernetes_apps = kubernetes.client.AppsV1Api()
 
-        self.arango = self._database(pyArango.connection.Connection(arangoURL='http://192.168.99.136:31529', username='root', password='root'), 'inventory')
+        self.arango = self._database(pyArango.connection.Connection(arangoURL='http://192.168.99.138:31529', username='root', password='root'), 'inventory')
         self.nodes = self._collection(self.arango, 'nodes', ['metadata.name', 'creation_timestamp', 'metadata.deletion_timestamp'])
         self.pods = self._collection(self.arango, 'pods', ['metadata.name', 'creation_timestamp', 'metadata.deletion_timestamp'])
         self.statefulsets = self._collection(self.arango, 'statefulsets', ['metadata.name', 'creation_timestamp', 'metadata.deletion_timestamp'])

@@ -18,7 +18,7 @@ do
     mkdir -p build/work/$service/bin
     mkdir -p build/work/$service/resources/kubernetes
     cp $service/src/*.py build/work/$service/lib 2>/dev/null
-    cp $service/resources/shell/* build/work/$service/bin 2>/dev/null
+    cp $service/resources/shell/* build/work/$service/bin/ 2>/dev/null
     cp -r $service/resources/* build/work/$service/resources 2>/dev/null
     rm -rf build/work/$service/shell
     if [ -f $service/resources/kubernetes/$service.yaml ]; then
