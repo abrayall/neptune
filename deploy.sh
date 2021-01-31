@@ -7,8 +7,8 @@ version=$version-$(date '+%Y%m%d%H%M')
 
 echo Deploying neptune...
 echo Deploying neptune-agent into minikube...
-minikube cache add neptune-agent:$version
-kubectl apply -f build/work/agent/resources/kubernetes/agent.yaml
+#minikube cache add neptune-agent:$version
+#kubectl apply -f build/work/agent/resources/kubernetes/agent.yaml
 
 echo Deploying neptune-timeseries into minikube...
 minikube cache add neptune-timeseries:$version

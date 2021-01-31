@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+
+		<!-- Meta data -->
+		<meta charset="UTF-8">
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+		<meta content="Clont - Bootstrap Webapp Responsive Dashboard Simple Admin Panel Premium HTML5 Template" name="description">
+		<meta content="Spruko Technologies Private Limited" name="author">
+		<meta name="keywords" content="Admin, Admin Template, Dashboard, Responsive, Admin Dashboard, Bootstrap, Bootstrap 4, Clean, Backend, Jquery, Modern, Web App, Admin Panel, Ui, Premium Admin Templates, Flat, Admin Theme, Ui Kit, Bootstrap Admin, Responsive Admin, Application, Template, Admin Themes, Dashboard Template"/>
+
+		<!-- Title -->
+		<title>Clont - Bootstrap Webapp Responsive Dashboard Simple Admin Panel Premium HTML5 Template</title>
+
+		<!--Favicon -->
+		<link rel="icon" href="../../assets/images/brand/favicon.ico" type="image/x-icon"/>
+
+		<!-- Style css -->
+		<link href="../../assets/css/style.css" rel="stylesheet" />
+
+		<!--Horizontal css -->
+        <link id="effect" href="../../assets/plugins/horizontal-menu/dropdown-effects/fade-up.css" rel="stylesheet" />
+        <link href="../../assets/plugins/horizontal-menu/horizontal.css" rel="stylesheet" />
+
+		<!-- P-scroll bar css-->
+		<link href="../../assets/plugins/p-scrollbar/p-scrollbar.css" rel="stylesheet" />
+
+		<!---Icons css-->
+		<link href="../../assets/plugins/web-fonts/icons.css" rel="stylesheet" />
+		<link href="../../assets/plugins/web-fonts/font-awesome/font-awesome.min.css" rel="stylesheet">
+		<link href="../../assets/plugins/web-fonts/plugin.css" rel="stylesheet" />
+
+		<!-- Skin css-->
+		<link href="../../assets/css/skins.css" rel="stylesheet" />
+
+	</head>
+
+	<body class="app">
+
+		<!---Global-loader-->
+		<div id="global-loader" >
+			<img src="../../assets/images/svgs/loader.svg" alt="loader">
+		</div>
+
+		<div class="page">
+			<div class="page-main">
+				<div class="header top-header">
+					<div class="container">
+						<div class="d-flex">
+							<a id="horizontal-navtoggle" class="animated-arrow hor-toggle"><span></span></a><!-- sidebar-toggle-->
+							<a class="header-brand" href="index.html">
+								<img src="../../assets/images/brand/logo.png" class="header-brand-img desktop-lgo" alt="Clont logo">
+								<img src="../../assets/images/brand/logo1.png" class="header-brand-img dark-logo" alt="Clont logo">
+								<img src="../../assets/images/brand/favicon.png" class="header-brand-img mobile-logo" alt="Clont logo">
+								<img src="../../assets/images/brand/favicon1.png" class="header-brand-img darkmobile-logo" alt="Clont logo">
+							</a>
+							<div class="dropdown  header-option">
+								<a class="nav-link icon" data-toggle="dropdown">
+									<i class="fe fe-codepen"></i> <span class="nav-span">Projects <i class="fa fa-angle-down ml-1 fs-18"></i></span>
+								</a>
+								<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+									<a class="dropdown-item" href="#">
+										App Design Projects
+									</a>
+									<a class="dropdown-item" href="#">
+										Web Design Projects
+									</a>
+									<a class="dropdown-item" href="#">
+										App Development Projects
+									</a>
+									<a class="dropdown-item" href="#">
+										Back-End Projects
+									</a>
+									<div class="text-left pr-5 pl-5 p-2 border-top">
+										<a href="#" class="">View Projects</a>
+									</div>
+								</div>
+							</div>
+							<div class="dropdown   header-setting">
+								<a class="nav-link icon" data-toggle="dropdown">
+									<i class="fe fe-settings"></i><span class="nav-span">Settings <i class="fa fa-angle-down ml-1 fs-18"></i></span>
+								</a>
+								<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+									<a class="dropdown-item" href="#">
+										Multi Pages
+									</a>
+									<a class="dropdown-item" href="#">
+										Mail Settings
+									</a>
+									<a class="dropdown-item" href="#">
+										Default Settings
+									</a>
+									<a class="dropdown-item" href="#">
+										Documentation
+									</a>
+									<div class="text-left pr-5 pl-5 p-2  border-top">
+										<a href="#" class="">Updated</a>
+									</div>
+								</div>
+							</div>
+							<div class="d-flex order-lg-2 ml-auto">
+								<a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="fa fa-search"></i></a>
+								<div class="mt-1">
+									<form class="form-inline">
+										<div class="search-element">
+											<input type="search" class="form-control header-search" placeholder="Search…" aria-label="Search" tabindex="1">
+											<button class="btn btn-primary-color" type="submit"><i class="fa fa-search text-dark"></i></button>
+										</div>
+									</form>
+								</div><!-- SEARCH -->
+								<div class="dropdown   header-fullscreen" >
+									<a  class="nav-link icon full-screen-link"  id="fullscreen-button">
+										<i class="fe fe-minimize"></i>
+									</a>
+								</div>
+								<div class="dropdown    header-notify">
+									<a class="nav-link icon" data-toggle="dropdown">
+										<i class="fe fe-bell"></i>
+										<span class="pulse "></span>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<div class="notifyimg">
+												<i class="fe fe-message-square"></i>
+											</div>
+											<div>
+												<div>Message Sent.</div>
+												<div class="small text-muted">3 hours ago</div>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<div class="notifyimg bg-danger">
+												<i class="fe fe-shopping-cart"></i>
+											</div>
+											<div>
+												<div> Order Placed</div>
+												<div class="small text-muted">5  hour ago</div>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<div class="notifyimg bg-success">
+												<i class="fe fe-calendar"></i>
+											</div>
+											<div>
+												<div> Event Started</div>
+												<div class="small text-muted">45 mintues ago</div>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<div class="notifyimg bg-warning">
+												<i class="fe fe-airplay"></i>
+											</div>
+											<div>
+												<div>Your Admin lanuched</div>
+												<div class="small text-muted">1 daya ago</div>
+											</div>
+										</a>
+										<div class=" text-center p-2 border-top">
+											<a href="#" class="">View All Notifications</a>
+										</div>
+									</div>
+								</div>
+								<div class="dropdown ">
+									<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+										<span>
+											<img src="../../assets/images/users/16.jpg" alt="img" class="avatar avatar-md brround">
+										</span>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
+										<div class="text-center">
+											<a href="#" class="dropdown-item text-center user pb-0">John Thomson</a>
+											<span class="text-center user-semi-title text-dark">App Developer</span>
+											<div class="dropdown-divider"></div>
+										</div>
+										<a class="dropdown-item" href="#">
+											<i class="dropdown-icon mdi mdi-account-outline "></i> Profile
+										</a>
+										<a class="dropdown-item" href="#">
+											<i class="dropdown-icon  mdi mdi-settings"></i> Settings
+										</a>
+										<a class="dropdown-item" href="#">
+											<i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
+										</a>
+										<a class="dropdown-item" href="#">
+											<i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
+										</a>
+										<a class="dropdown-item" href="login.html">
+											<i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Horizontal-menu -->
+				<div class="horizontal-main hor-menu clearfix">
+					<div class="horizontal-mainwrapper container clearfix">
+						<nav class="horizontalMenu clearfix">
+							<ul class="horizontalMenu-list">
+								<li aria-haspopup="true"><a href="#" class="sub-icon active"><i class="fe fe-monitor hor-icon"></i> Dashboard <i class="fa fa-angle-down horizontal-icon"></i></a>
+									<ul class="sub-menu">
+										<li aria-haspopup="true"><a href="index.html">Dashboard 01</a></li>
+										<li aria-haspopup="true"><a href="index2.html">Dashboard 02</a></li>
+										<li aria-haspopup="true"><a href="index3.html">Dashboard 03</a></li>
+										<li aria-haspopup="true"><a href="index4.html">Dashboard 04</a></li>
+										<li aria-haspopup="true"><a href="index5.html">Dashboard 05</a></li>
+									</ul>
+								</li>
+								<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-layers hor-icon"></i> Apps <i class="fa fa-angle-down horizontal-icon"></i></a>
+									<ul class="sub-menu">
+										<li aria-haspopup="true"><a href="cards.html">Cards design</a></li>
+										<li aria-haspopup="true"><a href="cards-image.html">Image  Cards design</a></li>
+										<li aria-haspopup="true"><a href="chat.html">Default Chat</a></li>
+										<li aria-haspopup="true" class="sub-menu-sub"><a href="#">Calender</a>
+											<ul class="sub-menu">
+												<li aria-haspopup="true"><a href="calendar.html">Default calendar</a></li>
+												<li aria-haspopup="true"><a href="calendar2.html">Full calendar</a></li>
+											</ul>
+										</li>
+										<li aria-haspopup="true"><a href="notify.html">Notifications</a></li>
+										<li aria-haspopup="true"><a href="sweetalert.html">Sweet alerts</a></li>
+										<li aria-haspopup="true"><a href="rangeslider.html">Range slider</a></li>
+										<li aria-haspopup="true"><a href="scroll.html">Content Scroll bar</a></li>
+										<li aria-haspopup="true"><a href="counters.html">Counters</a></li>
+										<li aria-haspopup="true"><a href="loaders.html">Loaders</a></li>
+										<li aria-haspopup="true"><a href="time-line.html">Time Line</a></li>
+										<li aria-haspopup="true"><a href="rating.html">Rating</a></li>
+									</ul>
+								</li>
+								<li aria-haspopup="true"><a href="widgets.html" class=""><i class="fe fe-grid"></i> widgets</a></li>
+								<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-pie-chart"></i> Charts <i class="fa fa-angle-down horizontal-icon"></i></a>
+									<ul class="sub-menu">
+										<li aria-haspopup="true"><a href="chart-chartist.html">Chartjs Charts</a></li>
+										<li aria-haspopup="true"><a href="chart-morris.html">Morris Charts</a></li>
+										<li aria-haspopup="true"><a href="chart-peity.html">Pie Charts</a></li>
+										<li aria-haspopup="true"><a href="chart-echart.html">Echart Charts</a></li>
+										<li aria-haspopup="true"><a href="chart-flot.html">Flot Charts</a></li>
+										<li aria-haspopup="true"><a href="chart-nvd3.html">Nvd3 Charts</a></li>
+										<li aria-haspopup="true"><a href="chart-dygraph.html">Dygraph Charts</a></li>
+										<li aria-haspopup="true"><a href="chart-c3.html">C3 Charts</a></li>
+									</ul>
+								</li>
+								<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-compass"></i> Advanced UI </a>
+									<ul class="sub-menu">
+										<li aria-haspopup="true"><a href="modal.html">Modal</a></li>
+										<li aria-haspopup="true"><a href="tooltipandpopover.html">Tooltip and popover</a></li>
+										<li aria-haspopup="true"><a href="progress.html">Progress</a></li>
+										<li aria-haspopup="true"><a href="chart.html">Charts</a></li>
+										<li aria-haspopup="true"><a href="carousel.html">Carousels</a></li>
+										<li aria-haspopup="true"><a href="accordion.html">Accordions</a></li>
+										<li aria-haspopup="true"><a href="tabs.html">Tabs</a></li>
+										<li aria-haspopup="true"><a href="headers.html">Headers</a></li>
+										<li aria-haspopup="true"><a href="footers.html">Footers</a></li>
+										<li aria-haspopup="true"><a href="crypto-currencies.html">Crypto-currencies</a></li>
+										<li aria-haspopup="true"><a href="users-list.html">User List</a></li>
+										<li aria-haspopup="true"><a href="search.html">Search page</a></li>
+									</ul>
+								</li>
+								<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-package"></i> Elements  <i class="fa fa-angle-down horizontal-icon"></i></a>
+									<div class="horizontal-megamenu clearfix">
+										<div class="container">
+											<div class="mega-menubg">
+												<div class="row">
+													<div class="col-lg-3 col-md-12 col-xs-12 link-list">
+														<ul>
+															<li><a href="alerts.html">Alerts</a></li>
+															<li><a href="buttons.html">Buttons</a></li>
+															<li><a href="colors.html">Colors</a></li>
+															<li><a href="avatars.html"> Avatars</a></li>
+															<li><a href="dropdown.html">Drop downs</a></li>
+															<li><a href="thumbnails.html">Thumbnails</a></li>
+															<li><a href="mediaobject.html">Media Object</a></li>
+														</ul>
+													</div>
+													<div class="col-lg-3 col-md-12 col-xs-12 link-list">
+														<ul>
+															<li><a href="list.html">List</a></li>
+															<li><a href="tags.html">Tags</a></li>
+															<li><a href="pagination.html">Pagination</a></li>
+															<li><a href="navigation.html">Navigation</a></li>
+															<li><a href="typography.html">Typography</a></li>
+															<li><a href="breadcrumbs.html"> Breadcrumbs</a></li>
+															<li><a href="invoice.html">Invoice</a></li>
+														</ul>
+													</div>
+													<div class="col-lg-3 col-md-12 col-xs-12 link-list">
+														<ul>
+															<li><a href="badge.html">Badges</a></li>
+															<li><a href="jumbotron.html">Jumbotron</a></li>
+															<li><a href="panels.html">Panels</a></li>
+															<li><a href="profile.html">Profile</a></li>
+															<li><a href="editprofile.html">Edit Profile</a></li>
+															<li><a href="pricing.html">Pricing Tables</a></li>
+															<li><a href="gallery.html">Gallery</a></li>
+														</ul>
+													</div>
+													<div class="col-lg-3 col-md-12 col-xs-12 link-list">
+														<ul>
+															<li><a href="emailservices.html"> Email</a></li>
+															<li><a href="email.html">Email Inbox</a></li>
+															<li><a href="about.html">About Company</a></li>
+															<li><a href="services.html">Services</a></li>
+															<li><a href="faq.html">FAQS</a></li>
+															<li><a href="terms.html">Terms and Conditions</a></li>
+															<li><a href="blog.html">Blog</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li aria-haspopup="true"><a href="#" class="sub-icon "><i class="fe fe-box"></i> Pages <i class="fa fa-angle-down horizontal-icon"></i></a>
+									<ul class="sub-menu">
+										<li><a href="maps.html">Vector Maps</a></li>
+										<li><a href="empty.html">Empty Page</a></li>
+										<li aria-haspopup="true" class="sub-menu-sub"><a href="#">Tables</a>
+											<ul class="sub-menu">
+												<li aria-haspopup="true"><a href="tables.html">Default table</a></li>
+												<li aria-haspopup="true"><a href="datatable.html">Data Table</a></li>
+											</ul>
+										</li>
+										<li aria-haspopup="true" class="sub-menu-sub"><a href="#">Forms</a>
+											<ul class="sub-menu">
+												<li aria-haspopup="true"><a href="form-elements.html">Form Elements</a></li>
+												<li aria-haspopup="true"><a href="form-wizard.html">Form-wizard Elements</a></li>
+												<li aria-haspopup="true"><a href="wysiwyag.html">Text Editor</a></li>
+											</ul>
+										</li>
+										<li aria-haspopup="true" class="sub-menu-sub"><a href="#">E-commerce</a>
+											<ul class="sub-menu">
+												<li aria-haspopup="true"><a href="shop.html">Products</a></li>
+												<li aria-haspopup="true"><a href="shop-des.html">Product Details</a></li>
+												<li aria-haspopup="true"><a href="cart.html">Shopping Cart</a></li>
+											</ul>
+										</li>
+										<li aria-haspopup="true" class="sub-menu-sub"><a href="#">Account</a>
+											<ul class="sub-menu">
+												<li aria-haspopup="true"><a href="login.html">Login</a></li>
+												<li aria-haspopup="true"><a href="register.html">Register</a></li>
+												<li aria-haspopup="true"><a href="forgot-password.html">Forgot password</a></li>
+												<li aria-haspopup="true"><a href="lockscreen.html">Lock screen</a></li>
+											</ul>
+										</li>
+										<li aria-haspopup="true" class="sub-menu-sub"><a href="#">Error Pages</a>
+											<ul class="sub-menu">
+												<li aria-haspopup="true"><a href="400.html">400 Error</a></li>
+												<li aria-haspopup="true"><a href="401.html">401 Error</a></li>
+												<li aria-haspopup="true"><a href="403.html">403 Error</a></li>
+												<li aria-haspopup="true"><a href="404.html">404 Error</a></li>
+												<li aria-haspopup="true"><a href="500.html">500 Error</a></li>
+												<li aria-haspopup="true"><a href="503.html">503 Error</a></li>
+											</ul>
+										</li>
+										<li><a href="construction.html">Under Construction</a></li>
+									</ul>
+								</li>
+								<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-award"></i> Icons <i class="fa fa-angle-down horizontal-icon"></i></a>
+									<ul class="sub-menu">
+										<li aria-haspopup="true"><a href="icons.html">Font Awesome</a></li>
+										<li aria-haspopup="true"><a href="icons2.html">Material Design Icons</a></li>
+										<li aria-haspopup="true"><a href="icons3.html">Simple line Icons</a></li>
+										<li aria-haspopup="true"><a href="icons4.html">Feather Icons</a></li>
+										<li aria-haspopup="true"><a href="icons5.html">Ionic Icons</a></li>
+										<li aria-haspopup="true"><a href="icons6.html"> Flag Icons</a></li>
+										<li aria-haspopup="true"><a href="icons7.html">pe7 Icons</a></li>
+										<li aria-haspopup="true"><a href="icons8.html">Themify Icons</a></li>
+										<li aria-haspopup="true"><a href="icons9.html"> Typicons Icons</a></li>
+										<li aria-haspopup="true"><a href="icons10.html">Weather Icons</a></li>
+									</ul>
+								</li>
+							</ul>
+						</nav>
+						<!--Nav end -->
+					</div>
+				</div>
+				<!-- Horizontal-menu end -->
+
+				<div class="app-content page-body">
+					<div class="container">
+
+						<!--Page header-->
+						<div class="page-header">
+							<div class="page-leftheader">
+								<h4 class="page-title">Dashboard</h4>
+								<ol class="breadcrumb pl-0">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+								</ol>
+							</div>
+							<div class="page-rightheader ml-auto d-lg-flex d-none">
+								<div class="btn-group mb-0">
+									<button type="button" class="btn btn-outline-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" href="#"><i class="fa fa-plus mr-2"></i>Add new Page</a>
+										<a class="dropdown-item" href="#"><i class="fa fa-eye mr-2"></i>View the page Details</a>
+										<a class="dropdown-item" href="#"><i class="fa fa-edit mr-2"></i>Edit Page</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#"><i class="fa fa-cog mr-2"></i> Settings</a>
+									</div>
+								</div>
+								<div class="ml-3">
+									<span class="sparkline_bar mr-2 float-left"></span>
+									<span class="float-left border-">
+										<span class="mb-0 mt-1 mr-2">2,978</span><small class="mb-0 mr-3">( Visitors )</small>
+									</span>
+									<span class="sparkline_bar1 mr-2 float-left"></span>
+									<span class="float-left">
+										<span class="mb-0 mt-1 mr-2">6,453</span><small class="mb-0"> ( Followers )</small>
+									</span>
+								</div>
+							</div>
+						</div>
+						<!--End Page header-->
+
+						<!--Row-->
+						<div class="row">
+							<div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									<div class="card-body pb-0">
+										<div class="text-left mb-4">
+											<p class=" mb-1 ">
+											  <i class="fa fa-line-chart mr-1"></i>
+											  {{ metric }}
+											</p>
+											<h2 class="mb-0">4,786<span class="fs-12 text-muted"><span class="text-success mr-1"><i class="fe fe-arrow-up ml-1 "></i> 12%</span> since last week</span></h2>
+										</div>
+									</div>
+									<div id="spark1" title="{{ metric }}"></div>
+								</div>
+							</div>
+							<div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									<div class="card-body pb-0">
+										<div class="text-left mb-4">
+											<p class=" mb-1 ">
+											  <i class="fa fa-usd mr-1"></i>
+											  Total Profits
+											</p>
+											<h2 class="mb-0">$873<span class="fs-12 text-muted"><span class="text-danger mr-1"><i class="fe fe-arrow-down ml-1 "></i> 0.34%</span> since last week</span></h2>
+										</div>
+									</div>
+									<div id="spark2"></div>
+								</div>
+							</div>
+							<div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card ">
+									<div class="card-body pb-0">
+										<div class="text-left mb-4">
+											<p class=" mb-1 ">
+											  <i class="fa fa-cart-arrow-down mr-1"></i>
+											  Total Orders
+											</p>
+											<h2 class="mb-0">6,295<span class="fs-12 text-muted"><span class="text-success mr-1"><i class="fe fe-arrow-up ml-1 "></i> 0.12%</span> since last week</span></h2>
+										</div>
+									</div>
+									<div id="spark3"></div>
+								</div>
+							</div>
+							<div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									<div class="card-body pb-0">
+										<div class="text-left mb-4">
+											<p class=" mb-1">
+											  <i class="fa fa-signal mr-1"></i>
+											  Total Sales Revenue
+											</p>
+											<h2 class="mb-0">$356<span class="fs-12 text-muted"><span class="text-danger mr-1"><i class="fe fe-arrow-down ml-1"></i>0.82%</span> since last week</span></h2>
+										</div>
+									</div>
+									<div id="spark4"></div>
+								</div>
+							</div>
+						</div>
+						<!--End row-->
+
+						<!--Row-->
+						<div class="row">
+							<div class="col-xl-7 col-md-12 col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Overview Of Revenue and profit</h3>
+										<div class="card-options ">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-xl-4 col-lg-4 col-md-12 mb-5">
+												<p class=" mb-0 "> This Year Sales</p>
+												<h2 class="mb-0">35,789<span class="fs-12 text-muted"><span class="text-danger mr-1"><i class="fe fe-arrow-down ml-1"></i>0.9%</span>last year</span></h2>
+											</div>
+											<div class="col-xl-4 col-lg-4 col-md-12 mb-5">
+												<p class=" mb-0 "> This Year Profits</p>
+												<h2 class="mb-0">$9,265<span class="fs-12 text-muted"><span class="text-success mr-1"><i class="fe fe-arrow-up ml-1"></i>0.15%</span>last year</span></h2>
+											</div>
+											<div class="col-xl-4 col-lg-4 col-md-12 mb-5">
+												<p class=" mb-0 "> This Year Sales Revenue</p>
+												<h2 class="mb-0">$4,678<span class="fs-12 text-muted"><span class="text-danger mr-1"><i class="fe fe-arrow-down ml-1"></i>1.04%</span>last year</span></h2>
+											</div>
+										</div>
+										<div id="chart" class="mb-0"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-5 col-md-12 col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Monthly Sales Growth</h3>
+										<div class="card-options ">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-md-8">
+												<span class=" mb-1">Sales Revenue</span>
+												<h3 class="mb-3">$5,89,268<span class="fs-12 text-danger ml-1">last 6 months</span></h3>
+												<p class="mb-0 text-muted fs-12">It is a long established fact that a reader will be fact that a reader will be distracted by  fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+											</div>
+											<div class="col-md-4 mt-4 mt-sm-0">
+												<div class="chart-circle overflow-hiddene  mt-sm-0 mb-0 text-left" data-value="0.23" data-thickness="8" data-color="#2d66f7">
+													<div class="chart-circle-value text-center "><h1 class="mb-0">25%</h1><small>Growth</small></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-body">
+										<h3 class="card-title mb-0">Sales Funnel & Avg. Length of Sales Stages</h3>
+										<div class="row">
+											<div class="col-4">
+												<p class="data-attributes mt-3 mb-1">
+													<span class="donut" data-peity='{ "fill": ["#2d66f7", "#e5e9f2"]}'>1/5</span>
+												</p>
+												<h4 class=" mb-0">3,678</h4>
+												<p class="mb-0 text-muted fs-12">Opportunities</p>
+											</div>
+											<div class="col-4">
+												<p class="data-attributes mt-3 mb-1">
+													<span class="donut" data-peity='{ "fill": ["#f72d66", "#e5e9f2"]}'>226/360</span>
+												</p>
+												<h4 class=" mb-0">6,398</h4>
+												<p class="mb-0 text-muted fs-12">Proposal</p>
+											</div>
+											<div class="col-4 ">
+												<p class="data-attributes mt-3 mb-1">
+													<span class="donut" data-peity='{ "fill": ["#f7be2d", "#e5e9f2"]}'>1,4</span>
+												</p>
+												<h4 class=" mb-0">5,289</h4>
+												<p class="mb-0 text-muted fs-12">Negotiation</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--End row-->
+
+						<!--Row-->
+						<div class="row">
+							<div class="col-xl-12 col-md-12 col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Overview of Sales Summary</h3>
+										<div class="card-options ">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-xl-3 col-lg-6 col-md-12 border-right dash1">
+												<p class=" mb-0 "> Total Revenue</p>
+												<h2 class="mb-2">$38925<span class="fs-12 text-muted ml-1">weekly profit</span></h2>
+												<div class="progress progress-xs mb-0">
+													<div class="progress-bar bg-primary" style="width: 78%"></div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-6 col-md-12 border-right dash1">
+												<p class=" mb-0 "> Total Tax</p>
+												<h2 class="mb-2">$3926<span class="fs-12 text-muted ml-1">weekly profit</span></h2>
+												<div class="progress progress-xs mb-0">
+													<div class="progress-bar bg-secondary" style="width: 58%"></div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-6 col-md-12 border-right dash1">
+												<p class=" mb-0 "> Total Income</p>
+												<h2 class="mb-2">73%<span class="fs-12 text-muted ml-1">weekly profit</span></h2>
+												<div class="progress progress-xs mb-0">
+													<div class="progress-bar bg-warning" style="width: 73%"></div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-6 col-md-12">
+												<p class=" mb-0 "> Total Loss</p>
+												<h2 class="mb-2">45%<span class="fs-12 text-muted ml-1">weekly loss</span></h2>
+												<div class="progress progress-xs mb-0">
+													<div class="progress-bar bg-success" style="width: 45%"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--End row-->
+
+						<!--Row-->
+						<div class="row">
+							<div class="col-xl-4 col-md-12 col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">New Users</h3>
+										<div class="card-options ">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div class="card-body p-0 ">
+										<div class="list-group list-lg-group list-group-flush">
+											<div class="list-group-item list-group-item-action" href="#">
+												<div class="media mt-0">
+													<img class="avatar-lg rounded-circle mr-3" src="../../assets/images/users/1.jpg" alt="Image description">
+													<div class="media-body">
+														<div class="d-md-flex align-items-center">
+															<div class="mt-1">
+																<h5 class="mb-0 text-dark">Lillian Blake</h5>
+																<p class="mb-0  fs-13 text-muted">User ID: #1234</p>
+															</div>
+															<small class="ml-md-auto fs-16 mt-2">
+																<i class="si si-envelope mr-1"  data-toggle="tooltip" data-placement="top" title="Chat"></i>
+																<i class="si si-settings" data-toggle="tooltip" data-placement="top" title="Settings"></i>
+																<i class="si si-trash mr-1" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+															</small>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item list-group-item-action" href="#">
+												<div class="media mt-0">
+													<img class="avatar-lg rounded-circle mr-3" src="../../assets/images/users/10.jpg" alt="Image description">
+													<div class="media-body">
+														<div class="d-md-flex align-items-center">
+															<div class="mt-1">
+																<h5 class="mb-0 font-weight-normal text-dark">Tim	Gray</h5>
+																<p class="mb-0 fs-13 text-muted">User ID: #1234</p>
+															</div>
+															<small class="ml-md-auto fs-16 mt-2">
+																<i class="si si-envelope mr-1"  data-toggle="tooltip" data-placement="top" title="Chat"></i>
+																<i class="si si-settings" data-toggle="tooltip" data-placement="top" title="Settings"></i>
+																<i class="si si-trash mr-1" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+															</small>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item list-group-item-action" href="#">
+												<div class="media mt-0">
+													<img class="avatar-lg rounded-circle mr-3" src="../../assets/images/users/3.jpg" alt="Image description">
+													<div class="media-body">
+														<div class="d-md-flex align-items-center">
+															<div class="mt-1">
+																<h5 class="mb-0 font-weight-normal text-dark">Rose Nash</h5>
+																<p class="mb-0 fs-13 text-muted">User ID: #1234</p>
+															</div>
+															<small class="ml-md-auto fs-16 mt-2">
+																<i class="si si-envelope mr-1"  data-toggle="tooltip" data-placement="top" title="Chat"></i>
+																<i class="si si-settings" data-toggle="tooltip" data-placement="top" title="Settings"></i>
+																<i class="si si-trash mr-1" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+															</small>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item list-group-item-action br-br-7 br-bl-7" href="#">
+												<div class="media mt-0">
+													<img class="avatar-lg rounded-circle mr-3" src="../../assets/images/users/9.jpg" alt="Image description">
+													<div class="media-body">
+														<div class="d-md-flex align-items-center">
+															<div class="mt-1">
+																<h5 class="mb-0 font-weight-normal text-dark">Justin Parr</h5>
+																<p class="mb-0  fs-13 text-muted">User ID: #1234</p>
+															</div>
+															<small class="ml-md-auto fs-16 mt-2">
+																<i class="si si-envelope mr-1"  data-toggle="tooltip" data-placement="top" title="Chat"></i>
+																<i class="si si-settings" data-toggle="tooltip" data-placement="top" title="Settings"></i>
+																<i class="si si-trash mr-1" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+															</small>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item list-group-item-action br-br-7 br-bl-7" href="#">
+												<div class="media mt-0">
+													<img class="avatar-lg rounded-circle mr-3" src="../../assets/images/users/4.jpg" alt="Image description">
+													<div class="media-body">
+														<div class="d-md-flex align-items-center">
+															<div class="mt-1">
+																<h5 class="mb-0 font-weight-normal text-dark">Vanessa	Quinn</h5>
+																<p class="mb-0  fs-13 text-muted">User ID: #1234</p>
+															</div>
+															<small class="ml-md-auto fs-16 mt-2">
+																<i class="si si-envelope mr-1"  data-toggle="tooltip" data-placement="top" title="Chat"></i>
+																<i class="si si-settings" data-toggle="tooltip" data-placement="top" title="Settings"></i>
+																<i class="si si-trash mr-1" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+															</small>
+														</div>
+
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item list-group-item-action br-br-7 br-bl-7" href="#">
+												<div class="media mt-0">
+													<img class="avatar-lg rounded-circle mr-3" src="../../assets/images/users/11.jpg" alt="Image description">
+													<div class="media-body">
+														<div class="d-md-flex align-items-center">
+															<div class="mt-1">
+																<h5 class="mb-0 font-weight-normal text-dark">Steven Roberts</h5>
+																<p class="mb-0 fs-13 text-muted">User ID: #1234</p>
+															</div>
+															<small class="ml-md-auto fs-16 mt-2">
+																<i class="si si-envelope mr-1"  data-toggle="tooltip" data-placement="top" title="Chat"></i>
+																<i class="si si-settings" data-toggle="tooltip" data-placement="top" title="Settings"></i>
+																<i class="si si-trash mr-1" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+															</small>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-4 col-md-12 col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title"> Countrywise  Sales Performance</h3>
+										<div class="card-options ">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div>
+										<table class="table card-table ">
+											<tbody>
+												<tr>
+													<td class="w-1"><i class="flag flag-us mt-2"></i></td>
+													<td>USA
+														<div class="progress progress-xs mt-1">
+															<div class="progress-bar bg-primary" style="width: 78%"></div>
+														</div>
+													</td>
+													<td class="w-1 text-right"><span class="">$6425</span></td>
+												</tr>
+												<tr>
+													<td><i class="flag flag-pl mt-2"></i></td>
+													<td>Poland
+														<div class="progress progress-xs mt-2">
+															<div class="progress-bar bg-secondary" style="width: 62%"></div>
+														</div>
+													</td>
+													<td class="text-right"><span class="">$5582</span></td>
+												</tr>
+												<tr>
+													<td><i class="flag flag-de mt-2"></i></td>
+													<td>Germany
+														<div class="progress progress-xs mt-2">
+															<div class="progress-bar bg-success" style="width: 48%"></div>
+														</div>
+													</td>
+													<td class="text-right"><span class="">$4587</span></td>
+												</tr>
+												<tr>
+													<td><i class="flag flag-ru mt-2"></i></td>
+													<td>Russia
+														<div class="progress progress-xs mt-2">
+															<div class="progress-bar bg-warning" style="width: 35%"></div>
+														</div>
+													</td>
+													<td class="text-right"><span class="">$2520</span></td>
+												</tr>
+												<tr>
+													<td><i class="flag flag-in mt-2"></i></td>
+													<td>India
+														<div class="progress progress-xs mt-2">
+															<div class="progress-bar bg-info" style="width: 35%"></div>
+														</div>
+													</td>
+													<td class="text-right"><span class="">$6429</span></td>
+												</tr>
+												<tr>
+													<td><i class="flag flag-pk mt-2"></i></td>
+													<td>Pakistan
+														<div class="progress progress-xs mt-2">
+															<div class="progress-bar bg-pink" style="width: 35%"></div>
+														</div>
+													</td>
+													<td class="text-right"><span class=" ">$3452</span></td>
+												</tr>
+												<tr>
+													<td><i class="flag flag-ca mt-2"></i></td>
+													<td>Canada
+														<div class="progress progress-xs mt-1">
+															<div class="progress-bar bg-cyan" style="width: 55%"></div>
+														</div>
+													</td>
+													<td class="text-right"><span class="">$1286</span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-4 col-md-12 col-lg-12">
+								<div class="card card-bgimg">
+									<div class="card-body">
+										<div class="d-flex">
+											<div class="text-white ">
+												<h2 class="mb-1">24 days</h2>
+												<p class=" mb-0 op1">Avg Sales Cycle length</p>
+											</div>
+											<div class="text-white ml-auto">
+												<i class="fe fe-clock fs-50 text-white"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-body">
+										<p class=" mb-0 ">Total earnings of this year</p>
+										<h2 class="mb-0">$5,69,265<span class="fs-12 text-muted"><span class="text-success mr-1"><i class="fe fe-arrow-up ml-1"></i>0.15%</span>last year</span></h2>
+										<div class="row mt-3">
+											<div class="col-4 border-right">
+												<p class="mb-0 text-muted">This month</p>
+												<h5 class="mb-0">34%</h5>
+											</div>
+											<div class="col-4 border-right ">
+												<p class="mb-0 text-muted">Last month</p>
+												<h5 class="mb-0">67%</h5>
+											</div>
+											<div class="col-4">
+												<p class="mb-0 text-muted">Total</p>
+												<h5 class="mb-0">$63,456</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-body">
+										<p class=" mb-0 ">Total Revenue of the Year</p>
+										<h2 class="mb-0">$68,245<span class="fs-12 text-muted"><span class="text-success mr-1"><i class="fe fe-arrow-up ml-1"></i>0.28%</span>last year</span></h2>
+										<div class="row mt-3 ">
+											<div class="col-4 border-right">
+												<p class="mb-0 text-muted">This month</p>
+												<h5 class="mb-0">12.6%</h5>
+											</div>
+											<div class="col-4 border-right ">
+												<p class="mb-0 text-muted">Last month</p>
+												<h5 class="mb-0">56%</h5>
+											</div>
+											<div class="col-4">
+												<p class="mb-0 text-muted">Total</p>
+												<h5 class="mb-0">90%</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--End row-->
+
+						<!--Row-->
+						<div class="row">
+							<div class="col-12 col-sm-12">
+								<div class="card ">
+									<div class="card-header">
+										<div class="card-title">Product Sales Details</div>
+										<div class="card-options ">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div>
+										<div class="table-responsive">
+											<table class="table  table-vcenter  text-nowrap mb-0">
+												<thead class="">
+													<tr>
+														<th>Product</th>
+														<th>Sold</th>
+														<th>Record point</th>
+														<th>Stock</th>
+														<th>Amount</th>
+														<th>Stock Status</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="text-sm font-weight-600">Women Wallet-E32N</td>
+														<td><span class="badge badge-primary">18</span></td>
+														<td>05</td>
+														<td>112</td>
+														<td>$ 2,356</td>
+														<td><i class="fa fa-check mr-1 text-success"></i> In Stock</td>
+													</tr>
+													<tr>
+														<td class="text-sm font-weight-600">Phone-345S</td>
+														<td><span class="badge badge-info">10</span></td>
+														<td>04</td>
+														<td>210</td>
+														<td>$ 3,522</td>
+														<td><i class="fa fa-check text-success"></i> In Stock</td>
+													</tr>
+													<tr>
+														<td class="text-sm font-weight-600">Doll-Elephant</td>
+														<td><span class="badge badge-secondary">15</span></td>
+														<td>05</td>
+														<td>215</td>
+														<td>$ 5,362</td>
+														<td><i class="fa fa-check text-success"></i> In Stock</td>
+													</tr>
+													<tr>
+														<td class="text-sm font-weight-600">Women-Kurtis</td>
+														<td><span class="badge badge-primary">21</span></td>
+														<td>07</td>
+														<td>102</td>
+														<td>$ 1,326</td>
+														<td><i class="fa fa-check text-success"></i> In Stock</td>
+													</tr>
+													<tr>
+														<td class="text-sm font-weight-600">Mens Shoes</td>
+														<td><span class="badge badge-danger">34</span></td>
+														<td>10</td>
+														<td>325</td>
+														<td>$ 5,234</td>
+														<td><i class="fa fa-check text-success"></i> In Stock</td>
+													</tr>
+													<tr>
+														<td class="text-sm font-weight-600">Mens Gold Metal Watch</td>
+														<td><span class="badge badge-success">11</span></td>
+														<td>04</td>
+														<td>0</td>
+														<td>$ 3,256</td>
+														<td>
+															<i class="fa fa-exclamation-triangle text-warning"></i>  Out of stock
+														</td>
+													</tr>
+													<tr class="mb-0">
+														<td class="text-sm font-weight-600">Laptop</td>
+														<td><span class="badge badge-warning">60</span></td>
+														<td>10</td>
+														<td>0</td>
+														<td>$ 7,652</td>
+														<td>
+															<i class="fa fa-exclamation-triangle text-danger"></i> Out of stock
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--End row-->
+
+					</div>
+				</div><!-- end app-content-->
+			</div>
+
+			<!--Footer-->
+			<footer class="footer">
+				<div class="container">
+					<div class="row align-items-center flex-row-reverse">
+						<div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">
+							Copyright © 2019 <a href="#">Clont</a>. Designed by <a href="#">Spruko Technologies Pvt.Ltd</a> All rights reserved.
+						</div>
+					</div>
+				</div>
+			</footer>
+			<!-- End Footer-->
+
+		</div>
+
+		<!-- Back to top -->
+		<a href="#top" id="back-to-top" style="display: inline;"><i class="fa fa-angle-up"></i></a>
+
+		<!-- Jquery js-->
+		<script src="../../assets/js/vendors/jquery-3.4.0.min.js"></script>
+
+		<!-- Bootstrap4 js-->
+		<script src="../../assets/plugins/bootstrap/popper.min.js"></script>
+		<script src="../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+		<!--Othercharts js-->
+		<script src="../../assets/plugins/othercharts/jquery.sparkline.min.js"></script>
+
+		<!-- Circle-progress js-->
+		<script src="../../assets/js/vendors/circle-progress.min.js"></script>
+
+		<!-- Jquery-rating js-->
+		<script src="../../assets/plugins/rating/jquery.rating-stars.js"></script>
+
+		<!--Horizontal js-->
+		<script src="../../assets/plugins/horizontal-menu/horizontal.js"></script>
+
+		<!-- P-scroll js-->
+		<script src="../../assets/plugins/p-scrollbar/p-scrollbar.js"></script>
+
+
+		<!-- ECharts js -->
+		<script src="../../assets/plugins/echarts/echarts.js"></script>
+
+		<!-- Peitychart js-->
+		<script src="../../assets/plugins/peitychart/jquery.peity.min.js"></script>
+		<script src="../../assets/plugins/peitychart/peitychart.init.js"></script>
+
+		<!-- Index js-->
+		<script src="../../assets/js/index1.js"></script>
+
+		<!-- Apexchart js-->
+		<script src="../../assets/js/apexcharts.js"></script>
+
+		<!-- Custom js-->
+		<script src="../../assets/js/custom.js"></script>
+
+
+	</body>
+</html>

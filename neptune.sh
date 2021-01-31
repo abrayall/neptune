@@ -6,7 +6,7 @@ if [ ! -d ".python" ]; then
     python3 -m venv .python
     chmod -R 755 .python
     .python/bin/activate
-    .python/bin/pip3 install flask kubernetes influxdb_client deepdiff pyArango pandas
+    .python/bin/pip3 install flask kubernetes influxdb_client deepdiff pyArango pandas tornado streamz
 fi
 
 .python/bin/activate

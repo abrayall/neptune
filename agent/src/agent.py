@@ -3,7 +3,7 @@ import sys
 import time
 import json
 import socket
-
+import websocket
 import traceback
 import threading
 import configparser
@@ -13,7 +13,6 @@ import logging
 import logging.handlers
 
 import kubernetes
-import influxdb_client
 
 try:
     kubernetes.config.load_kube_config()
@@ -21,21 +20,22 @@ except:
     kubernetes.config.load_incluster_config()
 
 class Agent:
-    def __init__(self):
-        self.influx = influxdb_client.InfluxDBClient(url="http://neptune-timeseries-0.neptune-timeseries:9999", token="Ku-vr2Vu70U47XRsUhNBRB2LoCkoSAQNEEzFc8Mncw72MLvQwaQf6ct0QERwzbN7Mhy8F16apCkkR5Obg0zhaw==", org="neptune")
-        self.writer = self.influx.write_api(write_options=influxdb_client.client.write_api.SYNCHRONOUS)
+    def __init__(self, insights):
+        self.metrics = websocket.WebSocketApp('ws://' + insights + '/api/socket/metrics/add')
         self.loggers = {}
 
     def run(self):
         self.kubernetes = Kubernetes().client(kubernetes.client.CoreV1Api()).onEvent(self.onEvent).start()
         self.telegraf = Telegraf().context(self).onMetric(self.onMetric).start()
         self.fluentd = Fluentd().context(self).start()
+        threading.Thread(target=self.metrics.run_forever).start()
 
     def onMetric(self, metric):
-        try:
-            self.writer.write(bucket="neptune", record=metric.toLine())
-        except:
-            print("Unable to communicate with timeseries service!")
+        #try:
+        print(metric.toLine())
+        self.metrics.send(metric.toLine())
+        #except:
+        #    print("Unable to communicate with insights service!")
 
         return self
 
@@ -226,4 +226,4 @@ class Metric:
         return self.name + ',' + ','.join("{!s}={!s}".format(tag,value) for (tag,value) in self.tags.items()) +  ' value=' + str(self.value) # + ' ' + str(self.timestamp * 1000)
 
 if __name__ == '__main__':
-    Agent().run()
+    Agent('http://neptune-insights-0.neptune-insights:8080' if len(sys.argv) != 2 else sys.argv[1]).run()
